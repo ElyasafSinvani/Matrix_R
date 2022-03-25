@@ -46,7 +46,7 @@ class Matrix:
         for i in range(1, self.Coll + 1):
             temp1.M[(x, i)] = temp2.M[(y, i)]
             temp1.M[(y, i)] = temp2.M[(x, i)]
-        print(temp1)
+        print(print_mul(temp1,self))
         return temp1 * self
 
     def __str__(self):
@@ -57,25 +57,27 @@ class Matrix:
 
 
 def Matrix_Rating(m):
-    temp = Matrix(m.Row, m.Coll - 1)
+    if m.Coll == m.Row + 1:
+        temp = Matrix(m.Row, m.Coll - 1)
+    else:
+        temp = Matrix(m.Row, m.Coll)
+
     for i in range(1, m.Coll + 1):
         for j in range(i, m.Row + 1):
             if i == j:
-                print(temp.Elementary_matrix(j, i, 1 / m.M[(j, i)]))
+                print(print_mul(temp.Elementary_matrix(j, i, 1 / m.M[(j, i)]),m))
                 m = temp.Elementary_matrix(j, i, 1 / m.M[(j, i)]) * m
 
 
             else:
-                print(temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]))
+                print(print_mul(temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]), m))
                 m = temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]) * m
     for i in list(range(1, m.Coll).__reversed__()):
         for j in list(range(1, i).__reversed__()):
             if i != j:
-                print(temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]))
+                print(print_mul(temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]), m))
                 m = temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]) * m
 
-    print(list(range(1, m.Coll).__reversed__()))
-    print(list(range(1, m.Row).__reversed__()))
     return m
 
 
@@ -87,7 +89,23 @@ def Pivot_order(m):
     return m
 
 
-m1 = Matrix(5, 6)
+def print_mul(x, y):
+    k = ''
+    for i in range(1, x.Row + 1):
+        if i == int(x.Row / 2 + 1):
+            k += str(list(x.M[(i, j)] for j in range(1, x.Coll + 1))) + "  *  " + str(
+                list(y.M[(i, j)] for j in range(1, y.Coll + 1))) + '  =  ' + str(
+                list((x * y).M[(i, j)] for j in range(1, (x * y).Coll + 1)))
+        else:
+            k += str(list(x.M[(i, j)] for j in range(1, x.Coll + 1))) + "     " + str(
+                list(y.M[(i, j)] for j in range(1, y.Coll + 1))) + "     " + str(
+                list((x * y).M[(i, j)] for j in range(1, (x * y).Coll + 1)))
+        k += '\n'
+
+    return k
+
+
+m1 = Matrix(3, 4)
 m1.set_matrix()
-print(Pivot_order(m1))
+m2 = Matrix(3, 3)
 print(Matrix_Rating(Pivot_order(m1)))
