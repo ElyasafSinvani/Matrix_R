@@ -107,5 +107,4 @@ def print_mul(x, y):
 
 m1 = Matrix(3, 4)
 m1.set_matrix()
-m2 = Matrix(3, 3)
 print(Matrix_Rating(Pivot_order(m1)))
