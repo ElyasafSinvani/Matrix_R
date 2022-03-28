@@ -77,7 +77,9 @@ def Matrix_Rating(m):
             if i != j:
                 print(print_mul(temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]), m))
                 m = temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]) * m
-
+    print("⏬  ⬇️final solution  ⬇️⏬")
+    for i in range(1,m.Row+1):
+        print(f'  X[{i}] = {m.M[(i,m.Coll)]}')
     return m
 
 
@@ -105,6 +107,7 @@ def print_mul(x, y):
     return k
 
 
-m1 = Matrix(3, 4)
+m1 = Matrix(3,4)
 m1.set_matrix()
 print(Matrix_Rating(Pivot_order(m1)))
+
