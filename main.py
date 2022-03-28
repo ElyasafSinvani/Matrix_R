@@ -46,7 +46,7 @@ class Matrix:
         for i in range(1, self.Coll + 1):
             temp1.M[(x, i)] = temp2.M[(y, i)]
             temp1.M[(y, i)] = temp2.M[(x, i)]
-        print(print_mul(temp1,self))
+        print(print_mul(temp1, self))
         return temp1 * self
 
     def __str__(self):
@@ -65,21 +65,25 @@ def Matrix_Rating(m):
     for i in range(1, m.Coll + 1):
         for j in range(i, m.Row + 1):
             if i == j:
-                print(print_mul(temp.Elementary_matrix(j, i, 1 / m.M[(j, i)]),m))
-                m = temp.Elementary_matrix(j, i, 1 / m.M[(j, i)]) * m
+                if m.M[(j, i)] != 1:
+                    print(print_mul(temp.Elementary_matrix(j, i, 1 / m.M[(j, i)]), m))
+                    m = temp.Elementary_matrix(j, i, 1 / m.M[(j, i)]) * m
+
 
 
             else:
-                print(print_mul(temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]), m))
-                m = temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]) * m
+                if m.M[(j, i)] != 0:
+                    print(print_mul(temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]), m))
+                    m = temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]) * m
+
     for i in list(range(1, m.Coll).__reversed__()):
         for j in list(range(1, i).__reversed__()):
             if i != j:
                 print(print_mul(temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]), m))
                 m = temp.Elementary_matrix(j, i, -1 * m.M[(j, i)]) * m
     print("⏬  ⬇️final solution  ⬇️⏬")
-    for i in range(1,m.Row+1):
-        print(f'  X[{i}] = {m.M[(i,m.Coll)]}')
+    for i in range(1, m.Row + 1):
+        print(f'  X[{i}] = {m.M[(i, m.Coll)]}')
     return m
 
 
@@ -107,7 +111,6 @@ def print_mul(x, y):
     return k
 
 
-m1 = Matrix(3,4)
+m1 = Matrix(3, 4)
 m1.set_matrix()
 print(Matrix_Rating(Pivot_order(m1)))
-
